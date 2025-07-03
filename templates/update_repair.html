@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Update Repair Record</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(120deg, #e0eafc, #cfdef3);
+        }
+        .container {
+            max-width: 650px;
+            margin: 60px auto;
+            padding: 30px 40px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        select, input[type="date"], textarea, input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        select:focus, input:focus, textarea:focus {
+            outline: none;
+            border-color: #4a90e2;
+            box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+        }
+        textarea {
+            resize: vertical;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .add-button {
+            text-align: center;
+        }
+        .add-button button {
+            background-color: #2e7d32;
+            color: white;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .add-button button:hover {
+            background-color: #1b5e20;
+        }
+        @media screen and (max-width: 700px) {
+            .container {
+                margin: 20px;
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Update Repair Record</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="device_type">Device Type:</label>
+            <select id="device_type" name="device_type" required>
+                <option value="Laptop" {% if repair.device_type == "Laptop" %}selected{% endif %}>Laptop</option>
+                <option value="Printer" {% if repair.device_type == "Printer" %}selected{% endif %}>Printer</option>
+                <option value="TV" {% if repair.device_type == "TV" %}selected{% endif %}>TV</option>
+                <option value="Mouse" {% if repair.device_type == "Mouse" %}selected{% endif %}>Mouse</option>
+                <option value="Other" {% if repair.device_type == "Other" %}selected{% endif %}>Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="device_id">Device ID:</label>
+            <input type="text" id="device_id" name="device_id" value="{{ repair.device_id }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="employee_name">Employee Name:</label>
+            <input type="text" id="emp_name" name="emp_name" value="{{ repair.emp_name }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="outward_date">Outward Date:</label>
+            <input type="date" id="outward_date" name="outward_date" value="{{ repair.outward_date|date:'Y-m-d' }}" required />
+        </div>
+
+        <div class="form-group">
+            <label for="inward_date">Inward Date:</label>
+            <input type="date" id="inward_date" name="inward_date" value="{{ repair.inward_date|date:'Y-m-d' }}" />
+        </div>
+
+        <div class="form-group">
+            <label for="purpose_of_repair">Purpose of Repair / Remark:</label>
+            <textarea id="purpose_of_repair" name="purpose_of_repair" rows="3" placeholder="e.g. Display not working">{{ repair.purpose_of_repair }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="client_name">Repairing Agency / Client Name:</label>
+            <input type="text" id="client_name" name="client_name" value="{{ repair.client_name }}">
+        </div>
+
+        <div class="add-button">
+            <button type="submit">Update</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Stationary Item</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background-color: #f4f4f4;
+        }
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="date"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0b7dda;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-link a {
+            color: #333;
+            text-decoration: none;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2>Update Stationary Item</h2>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <label for="product_name">Product Name:</label>
+        <input type="text" name="product_name" value="{{ item.product_name }}" required>
+
+        <label for="mail_id">Mail ID:</label>
+        <input type="text" name="mail_id" value="{{ item.mail_id }}" required>
+
+        <label for="purchase_date">Purchase Date:</label>
+        <input type="date" name="purchase_date" value="{{ item.purchase_date|date:'Y-m-d' }}" required>
+
+        <label for="activation_date">Activation Date:</label>
+        <input type="date" name="activation_date" value="{{ item.activation_date|date:'Y-m-d' }}" required>
+
+        <label for="expiry_date">Expiry Date:</label>
+        <input type="date" name="expiry_date" value="{{ item.expiry_date|date:'Y-m-d' }}" required>
+
+        <label for="warranty_years">Warranty (Years):</label>
+        <input type="number" name="warranty_years" value="{{ item.warranty_years }}" min="0" required>
+
+        <label for="make_in">Make In:</label>
+        <input type="text" name="make_in" value="{{ item.make_in }}" required>
+
+        <button type="submit">Update Item</button>
+    </form>
+
+    <div class="back-link">
+        <a href="{% url 'stationary_list' %}">← Back to Stationary List</a>
+    </div>
+</div>
+</body>
+</html>
